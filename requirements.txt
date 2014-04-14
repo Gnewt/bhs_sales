@@ -1,0 +1,12 @@
+Django==1.6.2
+South==0.8.4
+argparse==1.2.1
+django-configurations==0.8
+django-json-field==0.5.5
+django-object-tools==0.0.7
+django-south-admin==0.0.3
+python-dateutil==2.2
+requests==2.2.1
+six==1.6.1
+stripe==1.14.0
+wsgiref==0.1.2
