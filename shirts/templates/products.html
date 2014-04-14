@@ -61,7 +61,7 @@
           </div>
 <script>
 var handler = StripeCheckout.configure({
-  key: 'pk_test_6OdSlvdL9PyjJuCGIhwTF7ql',
+  key: '{{ stripe_public_key }}',
   image: '{% static "img/spartan_logo.jpg" %}',
   token: function(token, args) {
     $('#stripeToken').val(token.id);  

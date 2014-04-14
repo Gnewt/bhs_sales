@@ -16,7 +16,8 @@ def product_list(request):
     items = StoreItem.objects.all()
     return render_to_response("products.html", 
                               {'items': items,
-                               'sizes': ITEM_SIZE_CHOICES},
+                               'sizes': ITEM_SIZE_CHOICES,
+                               'stripe_public_key': settings.STRIPE_PUBLIC_KEY},
                                context_instance = RequestContext(request))
 
 def orders(request):
