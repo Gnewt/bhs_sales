@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block innercover %}
+<p>We have received <b>{{ orders_total }}</b> orders, collecting a total of <b>${{ total_collected }}</b>.</p>
+<table class="table">
+    <thead>
+        <td>Last Name</td>
+        <td>First Name</td>
+        <td>Item</td>
+        <td>Date</td>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.last_name }}</td>
+            <td>{{ order.first_name }}</td>
+            <td>{{ order.item.name }}</td>
+            <td>{{ order.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

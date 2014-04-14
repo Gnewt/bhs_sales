@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block innercover %}
+<h4>Getting your shirt</h4>
+<p>Here you can pre-order shirts in support of the BHS Class of 2014. When you place an order, your shirt will be reserved for pickup at BHS. Shirts will be ordered once, in bulk, from CustomInk. Once you place an order, please ensure your name is on the <a href="{% url 'orders' %}">order list</a>. If your name is not on the order list when the shirts are ordered, you will not be able to get one when they arrived. As of now, shirts are <b>pre-order only</b>. Don't expect extras.</p>
+<br />
+<h4>Money</h4>
+<p>Your payment will be distributed like this:</p>
+<dl class="dl-horizontal">
+    <dt>Fees</dt>
+    <dd>Our credit card processor, <a href="https://stripe.com/">Stripe</a>, takes 2.4% + 20¢</dd>
+    <dt>Shirt</dt>
+    <dd>The actual price-per-shirt will vary based on how many orders we get</dd>
+    <dt>The rest</dt>
+    <dd>100% of profits gathered from this site will go to the BHS Class of 2014's official account at the school</dd>
+</dl>
+{% endblock %}

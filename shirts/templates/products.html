@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block innercover %}
+          <div class="row">
+            <div class="col-md-6">
+              {% for product in items %}
+              <div class="thumbnail">
+                <img src="{{ product.image }}" alt="{{ product.name }}">
+                <div class="caption">
+                  <h3>{{ product.name }}</h3>
+                  <p>{{ product.description }}</p>
+                  <p><button class="btn btn-primary btn-lg" data-toggle="modal" onClick="populateModal({{ product.id }});" data-target="#buyModal">Buy This</button></p>
+                </div>
+              </div>
+              {% endfor %}
+              <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="buyModalLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <img id="productImage" />
+                        <h3 id="productPrice"></h3>
+                        <hr />
+                        <form method="POST" action="{% url 'charge' %}" class="form-horizontal" id="orderForm" role="form">{% csrf_token %}
+                          <input type="hidden" name="item" id="productId">
+                          <input type="hidden" name="token" id="stripeToken">
+                          <div class="form-group inline-form">
+                            <label for="inputFirstName" class="col-sm-2 control-label">Name</label>
+                            <div id="firstNameDiv" class="col-sm-4">
+                                <input type="text" class="form-control" name="first_name" id="inputFirstName" placeholder="First name">
+                            </div>
+                            <div id="lastNameDiv" class="col-sm-4">
+                                <input type="text" class="form-control" name="last_name" id="inputLastName" placeholder="Last name">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="inputSize" class="col-sm-2 control-label">Size</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="inputSize" name="size">
+                                  <option value="NC" default>Choose a size...</option>
+                                  {% for size in sizes %}
+                                  <option value="{{ size.0 }}">{{ size.1 }}</option>
+                                  {% endfor %}
+                                </select>
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" id="confirmButton">Next</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<script>
+var handler = StripeCheckout.configure({
+  key: 'pk_test_6OdSlvdL9PyjJuCGIhwTF7ql',
+  image: '{% static "img/spartan_logo.jpg" %}',
+  token: function(token, args) {
+    $('#stripeToken').val(token.id);  
+    $('#inputSize').prop('enabled', false);
+    $('#orderForm').submit();
+  }
+});
+
+$('#confirmButton').click(function() {
+    if (!$('#inputFirstName').val()) {
+        alert("You need to input a first name.");
+        return;
+    }
+    if (!$('#inputLastName').val()) {
+        alert("You need to input a last name.");
+        return;
+    }
+    if ($('#inputSize').val() == "NC") {
+        alert("You need to choose a size.");
+        return;
+    }
+
+    var product = productList[parseInt($('#productId').val())];
+    handler.open({
+        name: "BHS Class of 2014",
+        description: product['name'],
+        amount: product['price']*100,
+        allowRememberMe: false,
+    });
+});
+
+$('#buyModal').on('hidden.bs.modal', function() {
+    $('#orderForm')[0].reset();
+    $('#confirmButton').show();
+    $('#payButton').hide();
+});
+
+var productList = {
+    {% for product in items %}
+    {{ product.id }}: {'name': "{{ product.name }}", 'description': "{{ product.description }}", 'price': {{ product.price}}, 'image': "{{ product.image }}"},
+    {% endfor %}
+};
+
+function populateModal(id) {
+    var product = productList[id];
+    $('#buyModalLabel').html(product['name']);
+    $('#productImage').attr('src', product['image']);
+    $('#productPrice').html("$" + product['price']);
+    $('#productId').val(id);
+}
+</script>
+
+{% endblock %}

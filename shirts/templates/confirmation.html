@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block innercover %}
+
+<p>Thanks for your order! Here's the info we have on record.</p>
+<ul id="orderSummaryList" class="list-group">
+    <li class="list-group-item">Your name: {{ order.first_name }} {{ order.last_name }}</li>
+    <li class="list-group-item">Item: {{ order.item.name }}</li>
+    <li class="list-group-item">Purchase price: ${{ order.purchase_price }}</li>
+    <li class="list-group-item">Size: {{ size }}</li>
+</ul>
+<p>If any of this information seems incorrect, contact Nick Mooney to get it fixed.</p>
+
+{% endblock %}

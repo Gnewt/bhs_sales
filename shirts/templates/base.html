@@ -1,0 +1,54 @@
+{% load staticfiles %}
+
+<html>
+<head>
+	<title>{% block title %}BHS Shirts{% endblock %}</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="{% static "css/cover.css" %}"> 
+	
+	<link rel="shortcut icon" type="image/icon" href="{% static "img/favicon.ico" %}" /> 
+	
+	<!-- jQuery (dependency) -->
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	
+	<!-- Stripe Checkout -->
+	<script src="https://checkout.stripe.com/checkout.js"></script>
+</head>
+<body>
+{% block body %}
+<div class="site-wrapper">
+  <div class="site-wrapper-inner">
+    <div class="cover-container">
+      <div class="masthead clearfix">
+        <div class="inner">
+          <h3 class="masthead-brand"><a href="{% url 'home' %}">BHS Shirts</a></h3>
+          <ul class="nav masthead-nav">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'info' %}">About</a></li>
+            <li><a href="{% url 'orders' %}">Orders</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="inner cover">
+      {% block innercover %}
+      {% endblock %}
+      </div>
+      <div class="mastfoot">
+        <div class="inner">
+          <p>Operated by Nick Mooney, BHS 2014.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+</body>
+</html>
