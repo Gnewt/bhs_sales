@@ -2,8 +2,11 @@ import os
 from configurations import Configuration
 
 class Dev(Configuration):
-    STRIPE_PRIVATE_KEY = "sk_test_LDr76SWngxGEVfS6yHvR70XB"
-    STRIPE_PUBLIC_KEY = "pk_test_6OdSlvdL9PyjJuCGIhwTF7ql"
+    # Stripe keys will be blank for pushing to GitHub
+    # Fill out the test mode keys here before running
+    STRIPE_PRIVATE_KEY = ""
+    STRIPE_PUBLIC_KEY = ""
+    
     DEBUG = True
     TEMPLATE_DEBUG = DEBUG
     SECRET_KEY = 'a_v@l1i4s0$vutlyf%vvfyupz-fom1xvgsz(e(7-7u0o&tez7('
